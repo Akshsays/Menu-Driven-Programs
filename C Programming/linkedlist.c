@@ -11,6 +11,8 @@ void display_sll();
 void add_first();
 void add_last();
 void add_btw();
+void del_node();
+void del_last();
 int main()
 {
     int choice=0;
@@ -22,7 +24,9 @@ int main()
         printf("\n3. Add element at beg\n");
         printf("\n4. Add element at last\n");
         printf("\n5. Add element at specific position\n");
-        printf("\n6. Exit the program\n");
+        printf("\n6. Delete node at first and specific position\n");
+        printf("\n7. Delete the end node");
+        printf("\n8. Exit the program\n");
         printf("Enter your choice:");
         scanf("%d",&choice);
         switch(choice)
@@ -77,7 +81,27 @@ int main()
                 add_btw();
             }
             break;
-            case 6:exit(0);
+            case 6:
+            if(head==NULL)
+            {
+                printf("\n List is empty \n");
+            }
+            else
+            {
+                del_node();
+            }
+            break;
+            case 7:
+            if(head==NULL)
+            {
+                printf("\n List is empty \n");
+            }
+            else
+            {
+                del_last();
+            }
+            break;
+            case 8:exit(0);
             default:printf("\n Wrong choice \n");
         }
     }
@@ -187,4 +211,44 @@ void add_btw()
     newnode->next=temp->next;
     temp->next=newnode;
 }
+}
+void del_node()
+{
+    struct node *traverse=head,*current;
+    int pos,count=1;
+    printf("Enter position for deletion:");
+    scanf("%d",&pos);
+    if(pos==1)
+    {
+        current=head;
+        head=head->next;  
+        free(current);
+    }
+    else
+    {
+        while(count!=pos-1)
+        {
+            traverse=traverse->next;
+            if(traverse->next==NULL)
+            {
+                printf("\n Position not found \n");
+                return;
+            }
+            count++;
+        }
+        current=traverse->next;
+        traverse->next = current->next;
+        free(current);
+    }
+}
+void del_last()
+{
+    struct node *traverse=head,*current;
+    while(traverse->next->next!=NULL)
+    {
+        traverse=traverse->next;
+    }
+    current=traverse->next;
+    traverse->next=NULL;
+    free(current);
 }
