@@ -62,7 +62,7 @@ int main()
             }
             break;
             case 4:
-               if(head==NULL)
+            if(head==NULL)
             {
                 printf("\n List is empty \n");
             }
